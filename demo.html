@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #upload {
+      width: 300px;
+      height: 50px;
+      line-height: 50px;
+      border-radius: 10px;
+      background-color: #eaeef2;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="upload">点击上传文件（.jpeg,.png,.mp4）</div>
+  </div>
+  <script src="./dist/uploader.js"></script>
+  <script>
+    /* 这里是打包后挂载到 window.uploader 上，所以有 uploader 前缀 */
+    const upload = new uploader.Uploader(document.querySelector('#upload'), {
+      action: 'http://localhost:2000/upload',
+      // name: 'custom',
+      accept: '.jpeg,.png,.mp4',
+      multiple: true,
+      headers: { 'x-custom': 'custom' },
+      onChange: (files) => console.log('==> onChange', files),
+      onProgress: (e, file) => console.log('==> onProgress', e, file),
+      onSuccess: (e, file) => console.log('==> onSuccess', e, file),
+      onError: (e, file) => console.log('==> onError', e, file),
+    })
+  </script>
+</body>
+</html>
